@@ -1963,9 +1963,10 @@ local function run(msg, matches)
 			return get_rules(msg, data)
 		end
 
-		if matches[1] == 'help' and not is_owner(msg) then
-			text = "Message /superhelp to @Teleseed in private for SuperGroup help"
-			reply_msg(msg.id, text, ok_cb, false)
+		if matches[1] == 'help' and not is_owner(msg) then --ignore for more security
+			--text = "Message /superhelp to @Teleseed in private for SuperGroup help"
+			--reply_msg(msg.id, text, ok_cb, false)
+			return
 		elseif matches[1] == 'help' and is_owner(msg) then
 			local name_log = user_print_name(msg.from)
 			savelog(msg.to.id, name_log.." ["..msg.from.id.."] Used /superhelp")
