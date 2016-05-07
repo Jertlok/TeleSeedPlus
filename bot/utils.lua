@@ -1158,7 +1158,7 @@ function Kick_by_reply_admins(extra, success, result)
 		print('Old message :(')
 		return false
 	end
-	if result.to.type == 'chat' or result.to.type == 'channel' then
+	if result.to.peer_type == 'chat' or result.to.peer_type == 'channel' then
 		local chat = 'chat#id'..result.to.peer_id
 		local channel = 'channel#id'..result.to.peer_id
 	if tonumber(result.from.peer_id) == tonumber(our_id) then -- Ignore bot
@@ -1180,7 +1180,7 @@ function ban_by_reply(extra, success, result)
 		print('Old message :(')
 		return false
 	end
-	if result.to.type == 'chat' or result.to.type == 'channel' then
+	if result.to.peer_type == 'chat' or result.to.peer_type == 'channel' then
 	local chat = 'chat#id'..result.to.peer_id
  	local channel = 'channel#id'..result.to.peer_id
 	if tonumber(result.from.peer_id) == tonumber(our_id) then -- Ignore bot
@@ -1225,13 +1225,14 @@ function unban_by_reply(extra, success, result)
 		print('Old message :(')
 		return false
 	end
-	if result.to.type == 'chat' or result.to.type == 'channel' then
+	if result.to.peer_type == 'chat' or result.to.peer_type == 'channel' then
 		local chat = 'chat#id'..result.to.peer_id
 		local channel = 'channel#id'..result.to.peer_id
 	if tonumber(result.from.peer_id) == tonumber(our_id) then -- Ignore bot
 		return
 	end
 		send_large_msg(chat, "User "..result.from.peer_id.." Unbanned")
+		send_large_msg(channel, "User "..result.from.peer_id.." Unbanned")
 		-- Save on redis
 		local hash =  'banned:'..result.to.peer_id
 		redis:srem(hash, result.from.peer_id)
@@ -1239,6 +1240,7 @@ function unban_by_reply(extra, success, result)
 		return
   end
 end
+
 function banall_by_reply(extra, success, result)
 	if type(result) == 'boolean' then
 		print('Old message :(')

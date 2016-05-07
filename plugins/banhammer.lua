@@ -1,3 +1,4 @@
+utils = (loadfile "./bot/utils.lua")() --require utils file, fixes the kick via reply
 
 local function pre_process(msg)
   local data = load_data(_config.moderation.data)
@@ -210,8 +211,8 @@ local support_id = msg.from.id
 
   if matches[1]:lower() == 'unban' then -- /unban
     if type(msg.reply_id)~="nil" and is_momod(msg) then
-      local msgr = get_message(msg.reply_id,unban_by_reply, false)
-    end
+		msgr = get_message(msg.reply_id, unban_by_reply, false)
+	end
       local user_id = matches[2]
       local chat_id = msg.to.id
       local targetuser = matches[2]
@@ -232,8 +233,9 @@ local support_id = msg.from.id
 		}
 		local username = string.gsub(matches[2], '@', '')
 		resolve_username(username, kick_ban_res, cbres_extra)
+		end
 	end
- end
+ 
 
 if matches[1]:lower() == 'kick' then
     if type(msg.reply_id)~="nil" and is_momod(msg) then
